@@ -1,0 +1,13 @@
+.Header nav{
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.Header .navbar-nav .nav-link{
+    color:red !important;    
+    font-weight: 500 !important;
+    font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+.link{
+    color:green
+}
