@@ -33,13 +33,26 @@
   color: #61dafb;
 }
 
-.moons-wrapper footer{
-  position: absolute;  
+.moons-wrapper #footer-mobile{
+  position: fixed;  
   text-align: center;
   bottom: 0;  
   width: 100%;
   border-top: 1px solid #e4e4e4;
   padding-top: 5px;
+  background: #fff;
 }
 
+.moons-wrapper #footer-mobile .active{
+  color:#0752f8;
+  font-weight: bold;
+}
+
+.moons-wrapper #footer-mobile a{
+text-decoration: none;
+color:#252525;
+}
+.moons-wrapper #footer-mobile i{
+  display: block;
+}
 

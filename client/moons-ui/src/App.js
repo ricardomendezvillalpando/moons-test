@@ -1,6 +1,11 @@
 import React from 'react';
+import { Nav } from 'react-bootstrap';
 import Main from './components/Main/Main';
 import Header from './components/Header/Header';
+import { NavLink } from "react-router-dom";
+import 'font-awesome/css/font-awesome.min.css';
+
+
 import './App.css';
 
 function App() {
@@ -8,9 +13,37 @@ function App() {
     <div class='moons-wrapper'>
       <Header />
       <Main />      
-      <footer>
-        <p>By Ricardo Mendez Vilalpando</p>
-      </footer>            
+      <div id='footer-mobile' class='d-block d-sm-none'>
+      <Nav justify 
+                
+        >
+          <Nav.Item>            
+            <NavLink
+            exact              
+              to='/'
+            >
+            <i className="fa fa-home"></i>
+              Home
+            </NavLink>
+          </Nav.Item>
+          <Nav.Item>
+            <NavLink                
+                to='/chat'
+              >
+              <i className="fa fa-comments"></i>
+                Chat
+              </NavLink>
+          </Nav.Item>
+          <Nav.Item>            
+            <NavLink                        
+              to='/dashboard'
+            >
+            <i className="fa fa-tachometer"></i>
+              Dashboard
+            </NavLink>
+          </Nav.Item>          
+        </Nav>
+      </div>          
     </div>    
   );
 }
