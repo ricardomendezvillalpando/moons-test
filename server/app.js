@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -42,6 +44,15 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// SOCKET IO
+const options = {};
+const io = require('socket.io')(8080, options);
+
+io.on('connection', socket => { 
+  console.log('Connected user');
+  console.log(socket)
 });
 
 module.exports = app;
