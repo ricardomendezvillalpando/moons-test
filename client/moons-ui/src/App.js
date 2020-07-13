@@ -4,16 +4,14 @@ import Main from './components/Main/Main';
 import Header from './components/Header/Header';
 import { NavLink } from "react-router-dom";
 import 'font-awesome/css/font-awesome.min.css';
-
-
 import './App.css';
 
-function App() {
+function App() {  
   return (
-    <div class='moons-wrapper'>
+    <div className='moons-wrapper'>    
       <Header />
       <Main />      
-      <div id='footer-mobile' class='d-block d-sm-none'>
+      <div id='footer-mobile' className='d-block d-sm-none'>
       <Nav justify 
                 
         >

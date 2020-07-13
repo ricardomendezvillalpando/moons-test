@@ -8,11 +8,17 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.0",
     "font-awesome": "^4.7.0",
+    "lottie-react-web": "^2.2.2",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
+    "react-avatar": "^3.9.7",
     "react-bootstrap": "^1.2.1",
     "react-dom": "^16.13.1",
+    "react-moment": "^0.9.7",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "react-scrollable-feed": "^1.1.2",
+    "react-socket-io": "^0.2.5"
   },
   "scripts": {
     "start": "react-scripts start",

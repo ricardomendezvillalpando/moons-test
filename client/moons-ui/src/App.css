@@ -56,3 +56,40 @@ color:#252525;
   display: block;
 }
 
+
+
+.speech-bubble {
+  position: relative;
+    font-family: arial;
+    font-size: 1.1em;
+    background: #c1e8fa;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;     
+    display: block;
+    margin: 15px auto;
+    color: black;
+    animation-duration: .25s;
+}
+
+.nameContainer{  
+  padding-bottom: 10px;
+}
+
+.nameContainer input{
+  margin-bottom: 10px;
+}
+
+.speech-bubble span{
+  display: block;
+}
+
+.speech-bubble .userName{
+  font-weight: bold;
+}
+
+.collapse{
+  width: 100%;
+  margin-top: 5px;
+}
+

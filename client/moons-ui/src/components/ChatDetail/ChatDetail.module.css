@@ -1,0 +1,23 @@
+.ChatDetail{
+    padding-bottom: 90px;
+}
+.ChatDetail form {
+    position: fixed;
+    width: 100%;
+    bottom: 37px;     
+    left: 0;
+}
+
+.ChatDetail form input{    
+    width: 84%;    
+    border-radius: 0;
+  }
+
+  .ChatDetail time{
+    text-align: right;
+    display: block;
+    font-style: italic;
+    color: gray;
+  }
+
+

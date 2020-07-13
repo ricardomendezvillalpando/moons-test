@@ -1,1 +1,7 @@
-.Landing {}
+.Landing {
+    padding-top: 10px;
+}
+
+.Landing h1,.Landing h3,.Landing h5{
+    color:#0752f8;
+}

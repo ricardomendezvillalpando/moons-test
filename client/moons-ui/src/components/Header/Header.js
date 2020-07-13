@@ -20,18 +20,6 @@ const Header = () => (
   <Nav.Link  className={'link'} href="/chat">Chat</Nav.Link>
   <Nav.Link href="/dashboard">Dashboard</Nav.Link>      
   </Nav>   
-  <Dropdown>
-  <Dropdown.Toggle variant="light" id="dropdown-basic">
-    Random User
-  </Dropdown.Toggle>
-
-  <Dropdown.Menu>
-  <Form inline>
-      <FormControl type="text" placeholder="Set Username" className="mr-sm-2" />
-      <Button variant="primary">Hi!</Button>
-    </Form>
-  </Dropdown.Menu>
-</Dropdown> 
   </Navbar.Collapse>
   </Container>
   </Navbar>    
