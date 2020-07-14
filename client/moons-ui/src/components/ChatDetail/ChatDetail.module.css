@@ -4,13 +4,14 @@
 .ChatDetail form {
     position: fixed;
     width: 100%;
-    bottom: 37px;     
+    bottom: 5%;     
     left: 0;
 }
 
 .ChatDetail form input{    
-    width: 84%;    
+    width: 83%;
     border-radius: 0;
+    padding-left: 12%;
   }
 
   .ChatDetail time{
@@ -19,5 +20,3 @@
     font-style: italic;
     color: gray;
   }
-
-

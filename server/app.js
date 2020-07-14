@@ -8,12 +8,14 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var cors = require('cors')
 
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.use(cors())
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -24,6 +26,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(express.static(path.join(__dirname, 'build')));
+
+app.post('/message', (req, res) => {
+  console.log('Got message:', req.body.message);
+  req.body.message["date"]= new Date();
+  res.json(req.body.message);
+});
 
 
 app.get('/*', (req, res) => {
@@ -51,8 +59,17 @@ const options = {};
 const io = require('socket.io')(8080, options);
 
 io.on('connection', socket => { 
-  console.log('Connected user');
-  console.log(socket)
+  console.log('Connected user');  
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  socket.on('userSendMessage', (msg) => {
+    console.log("MENsJA", msg);
+    io.emit('updateConversation', msg);
+  });
+
 });
 
 module.exports = app;

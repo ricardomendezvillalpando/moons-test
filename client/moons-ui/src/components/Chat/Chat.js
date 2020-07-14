@@ -6,7 +6,7 @@ import Avatar from 'react-avatar';
 import styles from './Chat.module.css';
 import { Socket } from 'react-socket-io';
 
-const uri = 'http://localhost:8080';
+const uri = 'http://localhost:3000';
 const options = { transports: ['websocket'] };
 
 const name = 'Josh Perez';
