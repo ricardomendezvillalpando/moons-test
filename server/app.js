@@ -55,7 +55,7 @@ app.use(function(err, req, res, next) {
 });
 
 // SOCKET IO
-const options = {};
+const options = {secure: false};
 const io = require('socket.io')(8080, options);
 
 io.on('connection', socket => { 
