@@ -114,3 +114,30 @@ color:#252525;
     color: brown;
 }
 
+.infoData strong{
+  display:block;
+}
+
+.visits .smartPhoneTitle{
+  color:#BC5318;
+}
+
+.visits .tabletTitle{
+  color:#EBC42F;
+}
+
+.revenue .smartphone{
+  color:#456729;
+}
+
+.revenue .tablet{
+  color:#8AD046;
+}
+
+.impresions .smartphone{
+  color:#29505E;
+}
+
+.impresions .tablet{
+  color:#76C6DB;
+}

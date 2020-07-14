@@ -5,11 +5,11 @@
     position: fixed;
     width: 100%;
     bottom: 5%;     
-    left: 0;
+    
 }
 
 .ChatDetail form input{    
-    width: 83%;
+    width: 70%;
     border-radius: 0;
     padding-left: 12%;
   }

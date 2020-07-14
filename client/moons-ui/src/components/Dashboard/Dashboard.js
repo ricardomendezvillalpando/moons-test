@@ -3,182 +3,195 @@ import PropTypes from 'prop-types';
 import { Container, Row, Col,Card,Button } from 'react-bootstrap';
 import styles from './Dashboard.module.css';
 import Chart from "react-apexcharts";
+import impresions from '../../impresions.svg';
+import visits from '../../visits.svg';
+import revenue from '../../revenue.svg';
 
-let mixed = {
-          
-  series: [{
-    name: 'TEAM A',
-    type: 'column',
-    data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-  }, {
-    name: 'TEAM B',
-    type: 'area',
-    data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
-  }, {
-    name: 'TEAM C',
-    type: 'line',
-    data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
-  }],
+let radial = {     
+  series: [90],
   options: {
-    chart: {
-      height: 350,
-      type: 'line',
-      stacked: false,
-    },
-    stroke: {
-      width: [0, 2, 5],
-      curve: 'smooth'
-    },
-    plotOptions: {
-      bar: {
-        columnWidth: '50%'
-      }
-    },
-    
-    fill: {
-      opacity: [0.85, 0.25, 1],
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        opacityFrom: 0.85,
-        opacityTo: 0.55,
-        stops: [0, 100, 100, 100]
-      }
-    },
-    labels: ['01/01/2003', '02/01/2003', '03/01/2003', '04/01/2003', '05/01/2003', '06/01/2003', '07/01/2003',
-      '08/01/2003', '09/01/2003', '10/01/2003', '11/01/2003'
-    ],
-    markers: {
-      size: 0
-    },
-    xaxis: {
-      type: 'datetime'
-    },
-    yaxis: {
-      title: {
-        text: 'Points',
-      },
-      min: 0
-    },
-    tooltip: {
-      shared: true,
-      intersect: false,
-      y: {
-        formatter: function (y) {
-          if (typeof y !== "undefined") {
-            return y.toFixed(0) + " points";
-          }
-          return y;
-    
-        }
-      }
-    }
-  },
-
-
-};
-
-let chartObj = {
-  options: {
-    responsive: [{
-      breakpoint: undefined,
-      options: {},
-  }],
-    chart: {
-      id: "basic-bar"
-    },
-    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-    }
-  },
-  series: [
-    {
-      name: "series-1",
-      data: [30, 40, 45, 50, 49, 60, 70, 91]
-    }
-  ]
-};
-
-let radial = {         
-  series: [75],
-  options: {
-    chart: {
-      height: 350,
-      type: 'radialBar',
+    chart: {      
       toolbar: {
-        show: true
-      }
+        show: false  
+      },
+      height: 350,
+      type: 'radialBar'      
     },
     plotOptions: {
       radialBar: {
         startAngle: -135,
         endAngle: 225,
          hollow: {
-          margin: 0,
-          size: '70%',
-          background: '#fff',
-          image: undefined,
-          imageOffsetX: 0,
-          imageOffsetY: 0,
-          position: 'front',
-          dropShadow: {
-            enabled: true,
-            top: 3,
-            left: 0,
-            blur: 4,
-            opacity: 0.24
-          }
+          margin: 0,          
+          size: '85%',          
+          margin: 15,
+          image: revenue,
+          imageWidth: 260,
+          imageHeight: 2150,
+          //imageOffsetY:50,
+          imageClipped: false,
+          position: 'back'
         },
         track: {
-          background: '#fff',
-          strokeWidth: '67%',
+          background: '#456729',          
           margin: 0, // margin is in pixels
-          dropShadow: {
-            enabled: true,
-            top: -3,
-            left: 0,
-            blur: 4,
-            opacity: 0.35
-          }
+          
         },
     
         dataLabels: {
           show: true,
           name: {
-            offsetY: -10,
+            offsetY: -20,
             show: true,
-            color: '#888',
-            fontSize: '17px'
+            color: '#929292',
+            fontSize: '22px'
           },
           value: {
             formatter: function(val) {
-              return parseInt(val);
+              return "$ 124,000.00 MXN";
             },
             color: '#111',
-            fontSize: '36px',
+            fontSize: '30px',
             show: true,
+            offsetY: -1
           }
         }
       }
     },
     fill: {
-      type: 'gradient',
-      gradient: {
-        shade: 'dark',
-        type: 'horizontal',
-        shadeIntensity: 0.5,
-        gradientToColors: ['#ABE5A1'],
-        inverseColors: true,
-        opacityFrom: 1,
-        opacityTo: 1,
-        stops: [0, 100]
-      }
-    },
+      colors: ['#8AD046'],
+      opacity: 0.9,
+      type: 'solid'},
     stroke: {
       lineCap: 'round'
     },
-    labels: ['Percent'],
+    labels: ['REVENUE'],
+  }
+};
+
+let radial2 = {     
+  series: [60],
+  options: {
+    chart: {
+      toolbar: {
+        show: false  
+      },
+      height: 350,
+      type: 'radialBar'      
+    },
+    plotOptions: {
+      radialBar: {
+        startAngle: -135,
+        endAngle: 225,
+        hollow: {
+          margin: 0,
+          //background:'#8AD046',
+          size: '85%',          
+          margin: 15,
+          image: impresions,
+          imageWidth: 260,
+          imageHeight: 2150,
+          //imageOffsetY:50,
+          imageClipped: false,
+          position: 'back'
+        },
+        track: {
+          background: '#29505E',          
+          margin: 0, // margin is in pixels
+          
+        },
+    
+        dataLabels: {
+          show: true,
+          name: {
+            offsetY: -20,
+            show: true,
+            color: '#929292',
+            fontSize: '22px'
+          },
+          value: {
+            formatter: function(val) {
+              return "4576";
+            },
+            color: '#111',
+            fontSize: '48px',
+            show: true,
+            offsetY: 6
+          }
+        }
+      }
+    },
+    fill: {
+      colors: ['#76C6DB'],
+      opacity: 0.9,
+      type: 'solid'},
+    stroke: {
+      lineCap: 'round'
+    },
+    labels: ['IMPRESIONS'],
+  }
+};
+
+let radial3 = {     
+  series: [30],
+  options: {
+    chart: {
+      toolbar: {
+        show: false  
+      },
+      height: 350,
+      type: 'radialBar'      
+    },
+    plotOptions: {
+      radialBar: {
+        startAngle: -135,
+        endAngle: 225,
+        hollow: {
+          margin: 0,
+          //background:'#8AD046',
+          size: '85%',          
+          margin: 15,
+          image: visits,
+          imageWidth: 260,
+          imageHeight: 2150,
+          //imageOffsetY:50,
+          imageClipped: false,
+          position: 'back'
+        },
+        track: {
+          background: '#EBC42F',          
+          margin: 0, // margin is in pixels
+          
+        },
+    
+        dataLabels: {
+          show: true,
+          name: {
+            offsetY: -20,
+            show: true,
+            color: '#929292',
+            fontSize: '22px'
+          },
+          value: {
+            formatter: function(val) {
+              return "7654";
+            },
+            color: '#111',
+            fontSize: '36px',
+            show: true,
+            offsetY: -1
+          }
+        }
+      }
+    },
+    fill: {
+      colors: ['#BC5318'],
+      opacity: 0.9,
+      type: 'solid'},
+    stroke: {
+      lineCap: 'round'
+    },
+    labels: ['VISITS'],
   }
 };
 
@@ -189,61 +202,84 @@ const Dashboard = () => (
     
       <Col xs={12} md={4} lg={4} className='mb-2'>
         <Card>  
-          <Card.Body>
-            <Card.Title>Revenue</Card.Title>
+          <Card.Body>            
             <Card.Text>
               <Row>
                 <Col xs={12} md={12} lg={12}>
-                <Chart
-                  options={chartObj.options}
-                  series={chartObj.series}
-                  type="bar"              
-                />
-                </Col>
-              
-              </Row>
-            
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>            
-      </Col>
-
-      <Col xs={12} md={4} lg={4} className='mb-2'>
-        <Card>  
-          <Card.Body>
-            <Card.Title>Impresions</Card.Title>
-            <Card.Text>
-            <Row>
-                <Col xs={12} md={12} lg={12}>
                 <Chart options={radial.options} series={radial.series} type="radialBar" height={350} />
                 </Col>
-                </Row>
-
-            
+              
+              </Row>
+              <Row>
+                <Col className='infoData revenue'>
+                  <strong className='tablet'><i class='fa fa-tablet'></i> Tablet</strong>
+                  <span>60%</span>
+                  <span>$ 120,000 MXN</span>
+                </Col>
+                <Col className='text-right infoData revenue'>
+                  <strong className='smartphone'>Smartphone <i class='fa fa-mobile'></i></strong>
+                  <span>40%</span>
+                  <span>$80,000 MXN</span>
+                </Col>
+              </Row>
             </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            
           </Card.Body>
         </Card>            
       </Col>
 
       <Col xs={12} md={4} lg={4} className='mb-2'>
         <Card>  
-          <Card.Body>
-            <Card.Title>Visits</Card.Title>
+          <Card.Body>            
             <Card.Text>
             <Row>
                 <Col xs={12} md={12} lg={12}>
-                <Chart
-                  options={mixed.options}
-                  series={mixed.series}
-                  type="line"              
-                />
+                <Chart options={radial2.options} series={radial2.series} type="radialBar" height={350} />
+                </Col>
+                </Row>
+                <Row>
+                <Col className='infoData impresions'>
+                  <strong className='tablet'><i class='fa fa-tablet'></i> Tablet</strong>
+                  <span>60%</span>
+                  <span>$ 120,000 MXN</span>
+                </Col>
+                <Col className='text-right infoData impresions'>
+                  <strong className='smartphone'>Smartphone <i class='fa fa-mobile'></i></strong>
+                  <span>40%</span>
+                  <span>$80,000 MXN</span>
+                </Col>
+              </Row>
+
+            
+            </Card.Text>            
+          </Card.Body>
+        </Card>            
+      </Col>
+
+      <Col xs={12} md={4} lg={4} className='mb-2'>
+        <Card>  
+          <Card.Body>            
+            <Card.Text>
+            <Row>
+                <Col xs={12} md={12} lg={12}>
+                <Chart options={radial3.options} series={radial3.series} type="radialBar" height={350} />
                 </Col>
               
               </Row>
+              <Row>
+                <Col className='infoData visits'>
+                  <strong className='tabletTitle'><i class='fa fa-tablet'></i> Tablet</strong>
+                  <span>60%</span>
+                  <span>$ 120,000 MXN</span>
+                </Col>
+                <Col className='text-right visits'>
+                  <strong className='smartPhoneTitle'>Smartphone <i class='fa fa-mobile'></i></strong>
+                  <span>40%</span>
+                  <span>$80,000 MXN</span>
+                </Col>
+              </Row>
             </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            
           </Card.Body>
         </Card>            
       </Col>
