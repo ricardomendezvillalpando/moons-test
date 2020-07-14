@@ -56,7 +56,7 @@ app.use(function(err, req, res, next) {
 
 // SOCKET IO
 const options = {};
-const io = require('socket.io')(3000, options);
+const io = require('socket.io')(8080, options);
 
 io.on('connection', socket => { 
   console.log('Connected user');  

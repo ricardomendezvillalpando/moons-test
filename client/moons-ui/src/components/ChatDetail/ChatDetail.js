@@ -15,7 +15,7 @@ let textInput = React.createRef();
 let username = React.createRef();
 
 
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:8080');
 
 
 const ChatDetail = function() {
