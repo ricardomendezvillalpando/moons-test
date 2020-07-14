@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Moment from 'react-moment';
 import ScrollableFeed from 'react-scrollable-feed'
 import PropTypes from 'prop-types';
+import Avatar from 'react-avatar';
 import { Container, Row, Col, ListGroup, Media, Form, Button,Collapse, InputGroup, FormControl, Image,Nav, Dropdown} from 'react-bootstrap';
 import axios from 'axios';
 import styles from './ChatDetail.module.css';
@@ -83,18 +84,13 @@ return (
     
           
     {state.map((value, index) => {
-        return <div className="speech-bubble animated zoomIn" key={index}>
+        return <div className="speech-bubble animated" key={index}>
+        <Avatar name={value.username} size="40" round={true} />
           <span className='userName' style={{color:'#'+value.titleColor}}>{value.username}</span> 
           <span className='message'>{value.message}</span>            
           <Moment fromNow>{value.date}</Moment>   
         </div>
-      })}   
-
-      {chosenEmoji ? (
-        <span>You chose: {chosenEmoji.emoji}</span>
-      ) : (
-        <span>No emoji Chosen</span>
-      )}
+      })}         
       
            
     

@@ -72,6 +72,15 @@ color:#252525;
     animation-duration: .25s;
 }
 
+.speech-bubble:last-child {
+  animation: zoomIn;
+}
+
+.speech-bubble .sb-avatar{
+  float: left;
+  margin-right: 10px;
+}
+
 .nameContainer{  
   padding-bottom: 10px;
 }
