@@ -15,7 +15,7 @@ let textInput = React.createRef();
 let username = React.createRef();
 
 
-const socket = io('http://127.0.0.1');
+const socket = io('http://127.0.0.1:80');
 
 
 const ChatDetail = function() {
