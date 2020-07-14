@@ -15,7 +15,7 @@ let textInput = React.createRef();
 let username = React.createRef();
 
 
-const socket = io('https://gentle-harbor-64634.herokuapp.com:8080');
+const socket = io('localhost:8080');
 
 
 const ChatDetail = function() {
