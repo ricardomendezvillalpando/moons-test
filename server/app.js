@@ -57,6 +57,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+
+http.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
+
 // SOCKET IO
 const options = {secure: false};
 const io = require('socket.io')(http);
@@ -83,9 +89,5 @@ io.on('connection', socket => {
 
 });
 
-
-http.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
-});
 
 module.exports = app;
