@@ -9,7 +9,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cors = require('cors');
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -86,6 +86,11 @@ io.on('connection', socket => {
 
 http.listen(port, () => {
   console.log('listening on :'+port);
+});
+
+
+http.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
 });
 
 module.exports = app;
