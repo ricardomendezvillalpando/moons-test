@@ -1,3 +1,5 @@
+var app = require('express')();
+var http = require('http').createServer(app);
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,11 +8,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
-var app = express();
-var cors = require('cors')
-
-
+var cors = require('cors');
+const port = process.env.PORT || 8080;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +25,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', (req, res) => {
+  res.send('<h1>Hello world</h1>');
+});
 
 app.post('/message', (req, res) => {
   console.log('Got message:', req.body.message);
@@ -56,7 +59,7 @@ app.use(function(err, req, res, next) {
 
 // SOCKET IO
 const options = {secure: false};
-const io = require('socket.io')(8080, options);
+const io = require('socket.io')(http);
 
 io.on('connection', socket => { 
   console.log('Connected user');  
@@ -78,6 +81,11 @@ io.on('connection', socket => {
     io.emit('userTyping', user);
   });
 
+});
+
+
+http.listen(port, () => {
+  console.log('listening on :'+port);
 });
 
 module.exports = app;
