@@ -1,5 +1,6 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
+import ScrollableFeed from 'react-scrollable-feed'
 import Main from './components/Main/Main';
 import Header from './components/Header/Header';
 import { NavLink } from "react-router-dom";
@@ -8,6 +9,7 @@ import './App.css';
 
 function App() {  
   return (
+    <ScrollableFeed forceScroll={true}>
     <div className='moons-wrapper'>    
       <Header />
       <Main />      
@@ -42,7 +44,8 @@ function App() {
           </Nav.Item>          
         </Nav>
       </div>          
-    </div>    
+    </div> 
+    </ScrollableFeed>     
   );
 }
 

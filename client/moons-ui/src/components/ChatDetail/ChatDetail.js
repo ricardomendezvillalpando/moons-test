@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Moment from 'react-moment';
-import ScrollableFeed from 'react-scrollable-feed'
 import PropTypes from 'prop-types';
 import Avatar from 'react-avatar';
 import { Container, Row, Col, ListGroup, Media, Form, Button,Collapse, InputGroup, FormControl, Image,Nav, Dropdown} from 'react-bootstrap';
@@ -8,6 +7,8 @@ import axios from 'axios';
 import styles from './ChatDetail.module.css';
 import io from 'socket.io-client';
 import Picker from 'emoji-picker-react';
+import Lottie from 'lottie-react-web'
+import animation from '../../writting.json';
 // Creating references
 let randomUserNumber = Math.random().toString(36).substring(5);
 let randomColor = Math.floor(Math.random()*16777215).toString(16);
@@ -18,44 +19,60 @@ let username = React.createRef();
 
 const socket = io('http://localhost:8080');
 
-
 const ChatDetail = function() {
+
+  
+
   const [name, setName] = useState(randomUserNumber);  
-  const [state, setState] = useState([]);
+  const [state, setState] = useState([{
+    root:true,
+    message:"Welcome to chat"
+  }]);
   const [open, setOpen] = useState(true); 
+  const [typing, setTyping] = useState(false); 
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
-  const onEmojiClick = (event, emojiObject) => {
-    console.log(emojiObject)
+  const handleKeyPress = (event) => {  
+    console.log(event.key)  
+    socket.emit('userTyping', { user:name});
+  };
+
+  const onEmojiClick = (event, emojiObject) => {    
     textInput.current.value+=emojiObject.emoji;
     setChosenEmoji(emojiObject);
   };
 
   
-  socket.on('updateConversation', (data) => {
-    console.log(data);   
-    console.log(...state) ;
+  socket.on('updateConversation', (data) => {    
     setState([...state, data.message]);
+  });
+
+  socket.on('updateConversationName', (objName) => {    
+    var newState = state.map(function(conv){
+      if(conv.username===objName.oldName){
+        return conv.username=objName.name
+      }
+    });    
+    setState([...state, {'root':true,'message':objName.oldName+' changed his name to: '+objName.name +'...'}]);
+  });
+
+  socket.on('userTyping', (user) => {    
+       
+    console.log(user);
+    if(user.user!==name)
+      setTyping(true)
   });
 
   
 
   function sendMessage(msg){
-    console.log(msg);
-
+    setTyping(false)
     socket.emit('userSendMessage', { message: {"titleColor":randomColor,"username":name,"message":msg}});
-
-  /*axios.post(uri+'/message', { message: {"titleColor":randomColor,"username":name,"message":msg}})
-      .then(res => {        
-        console.log(res.data);
-      });*/
-
-    
     textInput.current.value='';
   }
 return (  
   <div className={styles.ChatDetail}>  
-  <ScrollableFeed forceScroll='true'>
+  
   <Container>
     <Row>
       <Col>
@@ -74,7 +91,13 @@ return (
       <Collapse in={open}>    
       <Col>
       <input className="form-control" placeholder="Change name..." ref={username} />                
-          <button className='btn btn-primary btn-xs' onClick={() => {setName(username.current.value);username.current.value='';setOpen(!open)}}>Set name</button>     
+          <button className='btn btn-primary btn-xs' onClick={() => {
+            setName(username.current.value);
+            socket.emit('updateName', { oldName:name,name: username.current.value});
+            username.current.value='';
+            setOpen(!open);
+            
+            }}>Set name</button>     
       </Col>       
           
       </Collapse>  
@@ -84,10 +107,17 @@ return (
     
           
     {state.map((value, index) => {
-        return <div className="speech-bubble animated" key={index}>
+
+        if(value.root){
+
+        }else{}
+        return <div className={"speech-bubble animated" + (value.root ? ' root' : ' ')} key={index}>
         <Avatar name={value.username} size="40" round={true} />
           <span className='userName' style={{color:'#'+value.titleColor}}>{value.username}</span> 
-          <span className='message'>{value.message}</span>            
+          <span className='message'>
+          <i className={'fa fa-moon-o' + (!value.root ? ' invisible' : ' ')} ></i>
+          {value.message}
+          </span>            
           <Moment fromNow>{value.date}</Moment>   
         </div>
       })}         
@@ -95,7 +125,19 @@ return (
            
     
             
-      <Form autoComplete="off" inline>
+      <Form autoComplete="off" inline>      
+      <div className={"userTyping" + (typing===false ? ' invisible' : ' ')}>
+      <span className='pull-left'>{name} IS TYPING</span>
+      <Lottie height={40}
+              width={40}
+        
+          options={{
+            animationData: animation,
+            
+          }}
+        />
+      
+      </div>
         <Form.Label htmlFor="inlineFormInputName2" srOnly>
           Name
         </Form.Label>
@@ -103,6 +145,7 @@ return (
           className="mb-2 mr-sm-2"
           id="inlineFormInputName2"
           placeholder="Type message ..."  
+          onKeyPress={handleKeyPress}
           ref={textInput}             
         />
         <Form.Label htmlFor="inlineFormInputGroupUsername2" srOnly>
@@ -126,8 +169,7 @@ return (
         </Button>
       </Form> 
     </Col>
-  </Container>
-  </ScrollableFeed>   
+  </Container>   
   </div>  
 );
 

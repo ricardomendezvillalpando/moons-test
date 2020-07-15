@@ -72,6 +72,35 @@ color:#252525;
     animation-duration: .25s;
 }
 
+.speech-bubble.root {
+  position: relative;
+    font-family: arial;
+    font-size: 1.1em;
+    background: #a1c4fd;
+    color: #fff;
+    border-radius: 10px;
+    padding: 5px;     
+    display: block;
+    margin: 15px auto;
+    color: black;
+    animation-duration: .25s;
+    text-align: center;
+    font-weight:bold;
+    font-style: italic;
+}
+
+.speech-bubble.root .fa-moon-o{
+  margin-right: 5px;
+}
+
+.moons-wrapper .speech-bubble.root .sb-avatar, .speech-bubble.root time{
+  display: none !important;
+}
+
+.speech-bubble.root span {
+  display: inline;
+}
+
 .speech-bubble:last-child {
   animation: zoomIn;
 }
@@ -140,4 +169,18 @@ color:#252525;
 
 .impresions .tablet{
   color:#76C6DB;
+}
+
+.userTyping{
+  display: block;
+    float: none;
+    width: 100%;
+    position: absolute;
+    top: -25px;
+    color:#007bff;
+    font-style: italic
+}
+
+.userTyping div{
+  float:left;
 }

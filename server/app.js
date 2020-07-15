@@ -65,9 +65,17 @@ io.on('connection', socket => {
     console.log('user disconnected');
   });
 
-  socket.on('userSendMessage', (msg) => {
-    console.log("MENsJA", msg);
+  socket.on('userSendMessage', (msg) => {    
     io.emit('updateConversation', msg);
+  });
+
+  socket.on('updateName', (objName) => {    
+    io.emit('updateConversationName', objName);
+  });
+
+  socket.on('userTyping', (user) => {   
+    console.log('userTyping') 
+    io.emit('userTyping', user);
   });
 
 });
