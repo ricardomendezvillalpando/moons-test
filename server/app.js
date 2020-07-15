@@ -68,7 +68,7 @@ const options = {secure: false};
 const io = require('socket.io')(http);
 
 io.on('connection', socket => { 
-  console.log('Connected user');  
+  console.log('Connected user ');  
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
