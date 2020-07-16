@@ -9,6 +9,7 @@ import io from 'socket.io-client';
 import Picker from 'emoji-picker-react';
 import Lottie from 'lottie-react-web'
 import animation from '../../writting.json';
+import waiting from '../../waiting.json';
 // Creating references
 let randomUserNumber = Math.random().toString(36).substring(5);
 let randomColor = Math.floor(Math.random()*16777215).toString(16);
@@ -21,8 +22,7 @@ const socket = io();
 
 const ChatDetail = function() {
 
-  
-
+  const [userCanChat, setUserCanChat] = useState(false);  
   const [name, setName] = useState(randomUserNumber);  
   const [state, setState] = useState([{
     root:true,
@@ -45,6 +45,11 @@ const ChatDetail = function() {
   
   socket.on('updateConversation', (data) => {    
     setState([...state, data.message]);
+    setTyping(false);
+  });
+
+  socket.on('beginChat', (data) => {    
+    setUserCanChat(data)
   });
 
   socket.on('updateConversationName', (objName) => {    
@@ -65,114 +70,126 @@ const ChatDetail = function() {
 
   
 
-  function sendMessage(msg){
-    setTyping(false)
+  function sendMessage(msg){    
     socket.emit('userSendMessage', { message: {"titleColor":randomColor,"username":name,"message":msg}});
     textInput.current.value='';
   }
-return (  
-  <div className={styles.ChatDetail}>  
-  
-  <Container>
-    <Row>
-      <Col>
-        <Button
-            onClick={() => setOpen(!open)}
-            className='pull-right'
-            aria-controls="example-collapse-text"
-            aria-expanded={open}
-          >
-            Welcome User {name} <i className='fa fa-chevron-down'></i>
-        </Button>      
-      </Col>                 
-    </Row>
-
-    <Row className='nameContainer'>
-      <Collapse in={open}>    
-      <Col>
-      <input className="form-control" placeholder="Change name..." ref={username} />                
-          <button className='btn btn-primary btn-xs' onClick={() => {
-            setName(username.current.value);
-            socket.emit('updateName', { oldName:name,name: username.current.value});
-            username.current.value='';
-            setOpen(!open);
-            
-            }}>Set name</button>     
-      </Col>       
-          
-      </Collapse>  
-    </Row>
-    
-    <Col className='messagesWrapper'>
-    
-          
-    {state.map((value, index) => {
-
-        if(value.root){
-
-        }else{}
-        return <div className={"speech-bubble animated" + (value.root ? ' root' : ' ')} key={index}>
-        <Avatar name={value.username} size="40" round={true} />
-          <span className='userName' style={{color:'#'+value.titleColor}}>{value.username}</span> 
-          <span className='message'>
-          <i className={'fa fa-moon-o' + (!value.root ? ' invisible' : ' ')} ></i>
-          {value.message}
-          </span>            
-          <Moment fromNow>{value.date}</Moment>   
-        </div>
-      })}         
-      
-           
-    
-            
-      <Form autoComplete="off" inline>      
-      <div className={"userTyping" + (typing===false ? ' invisible' : ' ')}>
-      <span className='pull-left'>{name} IS TYPING</span>
-      <Lottie height={40}
-              width={40}
-        
+  console.log(userCanChat)
+  if(userCanChat===false){
+  return (
+    <Container className='text-center'>
+      <Row className='h-100'>
+        <Lottie             
           options={{
-            animationData: animation,
-            
-          }}
-        />
+            animationData: waiting,
+            }}/>
+      </Row>      
+    </Container>
+  );
+  }else{
+    return (  
+      <div className={styles.ChatDetail}>  
       
-      </div>
-        <Form.Label htmlFor="inlineFormInputName2" srOnly>
-          Name
-        </Form.Label>
-        <Form.Control
-          className="mb-2 mr-sm-2"
-          id="inlineFormInputName2"
-          placeholder="Type message ..."  
-          onKeyPress={handleKeyPress}
-          ref={textInput}             
-        />
-        <Form.Label htmlFor="inlineFormInputGroupUsername2" srOnly>
-          Username
-        </Form.Label>
-
-        <Dropdown className='emojiContainer'>
-          <Dropdown.Toggle id="dropdown-basic">
-           <i className='fa fa-smile-o'></i>
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item href="#">
-            <Picker onEmojiClick={onEmojiClick} />
-            </Dropdown.Item>            
-          </Dropdown.Menu>
-        </Dropdown>
+      <Container>
+        <Row>
+          <Col>
+            <Button
+                onClick={() => setOpen(!open)}
+                className='pull-right'
+                aria-controls="example-collapse-text"
+                aria-expanded={open}
+              >
+                Welcome User {name} <i className='fa fa-chevron-down'></i>
+            </Button>      
+          </Col>                 
+        </Row>
+    
+        <Row className='nameContainer'>
+          <Collapse in={open}>    
+          <Col>
+          <input className="form-control" placeholder="Change name..." ref={username} />                
+              <button className='btn btn-primary btn-xs' onClick={() => {
+                setName(username.current.value);
+                socket.emit('updateName', { oldName:name,name: username.current.value});
+                username.current.value='';
+                setOpen(!open);
+                
+                }}>Set name</button>     
+          </Col>       
+              
+          </Collapse>  
+        </Row>
         
-        <Button onClick={() => sendMessage(textInput.current.value)} className="mb-2">
-          Send
-        </Button>
-      </Form> 
-    </Col>
-  </Container>   
-  </div>  
-);
-
+        <Col className='messagesWrapper'>
+        
+              
+        {state.map((value, index) => {
+    
+            if(value.root){
+    
+            }else{}
+            return <div className={"speech-bubble animated" + (value.root ? ' root' : ' ')} key={index}>
+            <Avatar name={value.username} size="40" round={true} />
+              <span className='userName' style={{color:'#'+value.titleColor}}>{value.username}</span> 
+              <span className='message'>
+              <i className={'fa fa-moon-o' + (!value.root ? ' invisible' : ' ')} ></i>
+              {value.message}
+              </span>            
+              <Moment fromNow>{value.date}</Moment>   
+            </div>
+          })}         
+          
+               
+        
+                
+          <Form autoComplete="off" inline>      
+          <div className={"userTyping" + (typing===false ? ' invisible' : ' ')}>
+          <span className='pull-left'>Someone is writting</span>
+          <Lottie height={40}
+                  width={40}
+            
+              options={{
+                animationData: animation,
+                
+              }}
+            />
+          
+          </div>
+            <Form.Label htmlFor="inlineFormInputName2" srOnly>
+              Name
+            </Form.Label>
+            <Form.Control
+              className="mb-2 mr-sm-2"
+              id="inlineFormInputName2"
+              placeholder="Type message ..."  
+              onKeyPress={handleKeyPress}
+              ref={textInput}             
+            />
+            <Form.Label htmlFor="inlineFormInputGroupUsername2" srOnly>
+              Username
+            </Form.Label>
+    
+            <Dropdown className='emojiContainer'>
+              <Dropdown.Toggle id="dropdown-basic">
+               <i className='fa fa-smile-o'></i>
+              </Dropdown.Toggle>
+    
+              <Dropdown.Menu>
+                <Dropdown.Item href="#">
+                <Picker onEmojiClick={onEmojiClick} />
+                </Dropdown.Item>            
+              </Dropdown.Menu>
+            </Dropdown>
+            
+            <Button onClick={() => sendMessage(textInput.current.value)} className="mb-2">
+              Send
+            </Button>
+          </Form> 
+        </Col>
+      </Container>   
+      </div>  
+    );
+  }
 }  
 
 

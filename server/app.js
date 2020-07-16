@@ -68,10 +68,19 @@ const options = {secure: false};
 const io = require('socket.io')(http);
 
 io.on('connection', socket => { 
-  console.log('Connected user ');  
+  
+  if( socket.client.conn.server.clientsCount<2){
+    io.emit('beginChat', false);
+  }else{
+    io.emit('beginChat', true);
+  }
 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    if( socket.client.conn.server.clientsCount<2){
+      io.emit('beginChat', false);
+    }else{
+      io.emit('beginChat', true);
+    }
   });
 
   socket.on('userSendMessage', (msg) => {    
